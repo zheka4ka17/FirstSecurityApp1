@@ -1,12 +1,13 @@
 package istep.com.FirstSecurityApp.security;
 
 import istep.com.FirstSecurityApp.models.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class PersonDetails implements UserDetails {
     private final Person person;
@@ -14,10 +15,11 @@ public class PersonDetails implements UserDetails {
     public PersonDetails(Person person) {
         this.person = person;
     }
-
+    //возращает роли
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(new SimpleGrantedAuthority(person.getRole()));
+
     }
 
     @Override
